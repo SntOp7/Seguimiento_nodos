@@ -1,15 +1,19 @@
 defmodule Main do
   def empacar_pedido(paquete) do
-    :timer.sleep(10)  # Simula tiempo de ETIQUETAR
+    etiquetar = 10
+    empaquetar = 15
+    embalarFrajil = 20
+    embalarNormal = 5
+    :timer.sleep(etiquetar)  # Simula tiempo de ETIQUETAR
     {:ok, "Pedido #{paquete.id} empacado"}
-    :timer.sleep(10)  # Simula tiempo de EMPAQUETAR
+    :timer.sleep(empaquetar)  # Simula tiempo de EMPAQUETAR
     {:ok, "Pedido #{paquete.id} empacado"}
     if paquete.fraji? do
-      :timer.sleep(10)  # Simula tiempo de EMBALAR un frajil
-      {:ok, "Pedido #{paquete.id} embalado"}
+      :timer.sleep(embalarFrajil)  # Simula tiempo de EMBALAR un frajil
+      {:ok, "Pedido #{paquete.id} embalado en tiempo de #{etiquetar + empaquetar + embalarFrajil}"}
     else
-      :timer.sleep(5)  # Simula tiempo de EMBALAJE normal
-      {:ok, "Pedido #{paquete.id} no requiere embalaje"}
+      :timer.sleep(embalarNormal)  # Simula tiempo de EMBALAJE normal
+      {:ok, "Pedido #{paquete.id} no requiere embalaje en tiempo de #{etiquetar + empaquetar + embalarNormal}"}
     end
   end
 
@@ -43,6 +47,6 @@ paquetes = [%Paquete{id: "1", peso: 10, fraji?: false},
             %Paquete{id: "4", peso: 15, fraji?: true},
             %Paquete{id: "5", peso: 8, fraji?: false}]
 
-Main.empacar_pedidos_secuencial(paquetes)
-Main.empacar_pedidos_concurrencia(paquetes)
+IO.inspect(Main.empacar_pedidos_secuencial(paquetes))
+IO.inspect(Main.empacar_pedidos_concurrencia(paquetes))
 Main.run_benchmark(paquetes)

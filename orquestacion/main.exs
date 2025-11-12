@@ -48,6 +48,6 @@ defmodule Main do
 end
 
 tareas = [:reindex, :purge_cache, :build_sitemap]
-Main.ejecutar_tareas_concurrencia(tareas)
-Main.ejecutar_tareas_secuencial(tareas)
+IO.inspect(Main.ejecutar_tareas_concurrencia(tareas))
+IO.inspect(Main.ejecutar_tareas_secuencial(tareas))
 Main.run_benchmark(tareas)

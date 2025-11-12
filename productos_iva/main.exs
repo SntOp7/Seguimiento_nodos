@@ -38,6 +38,6 @@ lista =
     }
   end
 
-Main.calcular_precio_secuencial(lista)
-Main.calcular_precio_concurrencia(lista)
+IO.inspect(Main.calcular_precio_secuencial(lista))
+IO.inspect(Main.calcular_precio_concurrencia(lista))
 Main.run_benchmark(lista)

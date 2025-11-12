@@ -39,6 +39,6 @@ notificaciones = [
   %Notif{canal: "email", usuario: "usuario2@example.com", plantilla: "plantilla2"},
   %Notif{canal: "sms", usuario: "usuario3@example.com", plantilla: "plantilla3"}]
 
-Main.enviar_notificaciones_concurrencia(notificaciones)
-Main.enviar_notificaciones_secuencial(notificaciones)
+IO.inspect(Main.enviar_notificaciones_concurrencia(notificaciones))
+IO.inspect(Main.enviar_notificaciones_secuencial(notificaciones))
 Main.run_benchmark(notificaciones)

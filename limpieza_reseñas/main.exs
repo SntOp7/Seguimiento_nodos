@@ -3,13 +3,13 @@ defmodule Main do
   son fue fuea fuean este esta estos estas muy más menos)
 
   def limpiar_resenia_secuencial(resenias) do
-    Enum.map(resenias, fn %{texto: texto} -> limpiar(texto)
+    Enum.map(resenias, fn %{id: id, texto: texto} -> {id, limpiar(texto)}
     end)
   end
 
   def limpiar_resenia_concurrencia(resenias) do
-    Enum.map(resenias, fn %{texto: texto} ->
-      Task.async(fn -> limpiar(texto)
+    Enum.map(resenias, fn %{id: id, texto: texto} ->
+      Task.async(fn -> {id, limpiar(texto)}
       end)
     end)
     |> Enum.map(&Task.await/1)
@@ -51,6 +51,6 @@ resenias = [%Review{id: "1", texto: "La película fue una experiencia increíble
              %Review{id: "4", texto: "El concierto fue espectacular, con una energía vibrante y una actuación inolvidable."},
              %Review{id: "5", texto: "La serie de televisión tiene una trama intrigante, personajes complejos y giros inesperados."}]
 
-Main.limpiar_resenia_secuencial(resenias)
-Main.limpiar_resenia_concurrencia(resenias)
+IO.inspect(Main.limpiar_resenia_secuencial(resenias))
+IO.inspect(Main.limpiar_resenia_concurrencia(resenias))
 Main.run_benchmark(resenias)

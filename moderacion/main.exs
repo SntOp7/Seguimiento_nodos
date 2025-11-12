@@ -65,6 +65,6 @@ comentarios = [
   %Comentario{id: 5, texto: "Malo"}
 ]
 
-Main.moderar_concurrente(comentarios)
-Main.moderar_secuencial(comentarios)
+IO.inspect(Main.moderar_concurrente(comentarios))
+IO.inspect(Main.moderar_secuencial(comentarios))
 Main.run_benchmark(comentarios)

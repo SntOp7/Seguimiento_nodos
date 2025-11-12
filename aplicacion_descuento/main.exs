@@ -45,6 +45,6 @@ carritos = [
   %Carrito{id: "C2", items: [item3, item4], cupon: cupon2}
 ]
 
-Main.aplicar_descuentos_secuencial(carritos)
-Main.aplicar_descuentos_concurrencia(carritos)
+IO.inspect(Main.aplicar_descuentos_secuencial(carritos))
+IO.inspect(Main.aplicar_descuentos_concurrencia(carritos))
 Main.run_benchmark(carritos)

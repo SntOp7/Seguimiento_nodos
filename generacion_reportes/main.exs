@@ -1,5 +1,5 @@
 defmodule Main do
-  def generar_resumen(sucursales) do
+  def generar_resumen_secuencial(sucursales) do
     Enum.map(sucursales, fn sucursal ->
       generar_resumen_sucursal(sucursal)
     end)
@@ -7,12 +7,8 @@ defmodule Main do
 
   def generar_resumen_sucursal(s) do
     total_ventas = Enum.reduce(s.ventas_diarias, 0, fn venta, acc -> acc + venta.monto end)
-
-    %{
-      nombre_sucursal: s.id,
-      total_ventas: total_ventas,
-      cantidad_ventas: length(s.ventas_diarias)
-    }
+    :timer.sleep(50)
+    "Reporte listo #{s.id}: Total de Ventas Realizadas #{total_ventas}"
   end
 
   def generar_resumen_concurrencia(sucursales) do
@@ -31,7 +27,7 @@ defmodule Main do
     IO.puts("Tiempo concurrencia: #{inspect(tiempo_concurrencia)}")
 
     tiempo_secuencial =
-      Benchmark.determinar_tiempo_ejecucion({__MODULE__, :generar_resumen, [sucursales]})
+      Benchmark.determinar_tiempo_ejecucion({__MODULE__, :generar_resumen_secuencial, [sucursales]})
 
     IO.puts("Tiempo secuencial: #{inspect(tiempo_secuencial)}")
     speedup = Benchmark.calcular_speedup(tiempo_concurrencia, tiempo_secuencial)
@@ -60,6 +56,6 @@ sucursales = [
   }
 ]
 
-Main.generar_resumen(sucursales)
-Main.generar_resumen_concurrencia(sucursales)
+IO.inspect(Main.generar_resumen_secuencial(sucursales))
+IO.inspect(Main.generar_resumen_concurrencia(sucursales))
 Main.run_benchmark(sucursales)

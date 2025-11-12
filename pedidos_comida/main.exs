@@ -5,8 +5,9 @@ defmodule Main do
     end)
   end
 
-  def preparar(%Orden{prep_ms: prep_ms}) do
+  def preparar(%Orden{id: id, item: item, prep_ms: prep_ms}) do
     :timer.sleep(prep_ms)
+    {id, item, :preparado}
   end
 
   def preparar_orden_concurrencia(ordenes) do
@@ -31,6 +32,6 @@ ordenes = [%Orden{id: 1, item: "Pizza", prep_ms: 2000},
            %Orden{id: 2, item: "Sushi", prep_ms: 1500},
            %Orden{id: 3, item: "Burger", prep_ms: 1000}]
 
-Main.preparar_orden_secuencial(ordenes)
-Main.preparar_orden_concurrencia(ordenes)
+IO.inspect(Main.preparar_orden_secuencial(ordenes))
+IO.inspect(Main.preparar_orden_concurrencia(ordenes))
 Main.run_benchmark(ordenes)
